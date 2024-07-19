@@ -6,14 +6,13 @@ namespace FantasyBattle
         //  but half of what strength gives.
         public virtual int Strength { get; }
 
-        public Stats()
-        {
-
-        }
-
+        public Stats() { }
+        
         public Stats(int strength)
         {
             Strength = strength;
         }
+
+        public float CalculateDamageModifier() => Strength * 0.1f;
     }
 }
