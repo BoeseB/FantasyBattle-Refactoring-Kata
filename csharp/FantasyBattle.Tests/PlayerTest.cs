@@ -7,26 +7,25 @@ namespace FantasyBattle.Tests
 {
     public class PlayerTest
     {
+        [Fact]
+        public void DamageCalculations()
+        {
+            var player = new Player(
+                new Inventory(new Equipment(
+                    new BasicItem("round shield", 0, 1.4f),
+                    new BasicItem("excalibur", 20, 1.5f),
+                    new BasicItem("helmet of swiftness", 0, 1.2f),
+                    new BasicItem("ten league boots", 0, 0.1f),
+                    new BasicItem("breastplate of steel", 0, 1.4f))),
+                new Stats(0));
 
-        // choose this one if you are familiar with mocks
-        [Fact(Skip = "Test is not finished yet")]
-        public void DamageCalculationsWithMocks() {
-            var inventory = new Mock<Inventory>();
-            var stats = new Mock<Stats>();
-            var target = new Mock<SimpleEnemy>();
+            var target = new SimpleEnemy(
+                new SimpleArmor(5),
+                [new BasicBuff(1.0f, 1.0f)]);
 
-            var damage = new Player(inventory.Object, stats.Object).CalculateDamage(target.Object);
-            Assert.Equal(10, damage.Amount);
-        }
+            Damage damage = player.CalculateDamage(target);
 
-        // choose this one if you are not familiar with mocks
-        [Fact(Skip = "Test is not finished yet")]
-        public void DamageCalculations() {
-            Inventory inventory = new Inventory(null);
-            Stats stats = new Stats(0);
-            SimpleEnemy target = new SimpleEnemy(null, null);
-            Damage damage = new Player(inventory, stats).CalculateDamage(target);
-            Assert.Equal(10, damage.Amount);
+            Assert.Equal(102, damage.Amount);
         }
     }
 }
